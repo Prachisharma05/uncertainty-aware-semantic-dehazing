@@ -74,7 +74,7 @@ def compute_loss(pred, clear, gate, l1_fn, lpips_fn, clip_model, config):
         config["clip"]["input_size"]
     )
     
-    gate_reg = gate.mean()
+    gate_reg = (gate.mean() - 0.5) ** 2
 
     total = (
         config["loss"]["lambda_l1"] * l1
@@ -95,6 +95,7 @@ def validate(model, val_loader, l1_fn, lpips_fn, clip_model, config, device):
     total_lpips = 0.0
     total_clip = 0.0
     total_gate_mean = 0.0
+    total_gate_reg = 0.0
 
     with torch.no_grad():
         for batch in val_loader:
@@ -117,8 +118,8 @@ def validate(model, val_loader, l1_fn, lpips_fn, clip_model, config, device):
             total_l1 += l1_value
             total_lpips += lpips_value
             total_clip += clip_value
-            total_gate_mean += gate_reg_value
             total_gate_mean += gate.mean().item()
+            total_gate_reg += gate_reg_value
 
     n = len(val_loader)
 
