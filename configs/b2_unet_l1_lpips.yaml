@@ -1,0 +1,31 @@
+experiment:
+  name: b2_unet_l1_lpips
+  seed: 42
+
+data:
+  train_pairs: data/RESIDE/ITS/train_pairs.txt
+  val_pairs: data/RESIDE/ITS/val_pairs.txt
+  image_size: 256
+  batch_size: 4
+  num_workers: 2
+
+model:
+  name: unet
+  in_channels: 3
+  out_channels: 3
+
+training:
+  epochs: 30
+  learning_rate: 0.00001
+  weight_decay: 0.00001
+  optimizer: adamw
+  mixed_precision: false
+
+loss:
+  lambda_l1: 1.0
+  lambda_lpips: 0.1
+
+saving:
+  checkpoint_dir: checkpoints/b2
+  result_dir: results/b2
+  log_dir: logs/b2

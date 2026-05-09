@@ -1,0 +1,38 @@
+experiment:
+  name: b5_gated_cross_attention
+  seed: 42
+
+data:
+  train_pairs: data/RESIDE/ITS/train_pairs.txt
+  val_pairs: data/RESIDE/ITS/val_pairs.txt
+  image_size: 256
+  batch_size: 2
+  num_workers: 2
+
+model:
+  name: unet_gated_cross_attention
+  in_channels: 3
+  out_channels: 3
+
+clip:
+  model_name: ViT-B-16
+  pretrained: openai
+  input_size: 224
+
+training:
+  epochs: 20
+  learning_rate: 0.000005
+  weight_decay: 0.00001
+  optimizer: adamw
+  mixed_precision: false
+
+loss:
+  lambda_l1: 1.0
+  lambda_lpips: 0.1
+  lambda_clip: 0.05
+  lambda_gate: 0.0001
+
+saving:
+  checkpoint_dir: checkpoints/b5
+  result_dir: results/b5
+  log_dir: logs/b5

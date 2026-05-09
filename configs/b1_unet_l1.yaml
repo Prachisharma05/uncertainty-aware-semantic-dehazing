@@ -1,0 +1,28 @@
+experiment:
+  name: b1_unet_l1
+  seed: 42
+
+data:
+  train_pairs: data/RESIDE/ITS/train_pairs.txt
+  val_pairs: data/RESIDE/ITS/val_pairs.txt
+  image_size: 256
+  batch_size: 4
+  num_workers: 2
+
+model:
+  name: unet
+  in_channels: 3
+  out_channels: 3
+
+training:
+  epochs: 30
+  learning_rate: 0.00005
+  weight_decay: 0.00001
+  optimizer: adamw
+  loss: l1
+  mixed_precision: false
+
+saving:
+  checkpoint_dir: checkpoints/b1
+  result_dir: results/b1
+  log_dir: logs/b1
