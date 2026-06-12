@@ -37,8 +37,15 @@ This project implements a semantic-guided image dehazing framework using UNet, p
 - Cross-attention module implemented
 - Spatial semantic injection tested
 
-### Phase 6: B5 - Gated Cross-Attention
-- Uncertainty-aware gated semantic fusion under development
+### Phase 6: B5 & B6 - Gated Cross-Attention
+- Uncertainty-aware gated semantic fusion completed.
+- B6 frozen backbone variations successfully trained.
+
+### Phase 7: Final Evaluations & Benchmarking
+- **Semantic Token Ablation**: Validated that removing CLIP semantic tokens leads to significant performance drop.
+- **Explainability**: Implemented alpha-blended heatmap overlays showing precisely where the semantic gate activates.
+- **CLIP Semantic Similarity**: Validated semantic preservation. B6 achieves `0.9870` cosine similarity compared to baseline B1 (`0.9787`).
+- **SOTA Comparison**: Evaluated against FFA-Net, AECR-Net, and DehazeFormer-S using RESIDE ITS.
 
 ## Tech Stack
 
@@ -67,4 +74,9 @@ src/
 ├── evaluate_b1.py
 ├── evaluate_b2.py
 ├── evaluate_b3.py
-└── evaluate_b4.py
+├── evaluate_b4.py
+├── evaluate_b5.py
+├── evaluate_b6.py
+├── evaluate_b6_ablation.py
+├── evaluate_clip_similarity.py
+└── visualize_b6_gate.py
