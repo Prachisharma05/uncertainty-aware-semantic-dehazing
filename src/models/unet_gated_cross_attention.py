@@ -59,7 +59,7 @@ class UNetGatedCrossAttention(nn.Module):
 
         self.final = nn.Conv2d(64, out_channels, kernel_size=1)
 
-    def forward(self, x, return_attention=False, return_gate=False):
+    def forward(self, x, return_attention=False, return_gate=False, ablate_semantics=False):
         """
         Input:
             x: [B, 3, 256, 256]
@@ -70,6 +70,9 @@ class UNetGatedCrossAttention(nn.Module):
 
         # CLIP patch tokens from hazy input
         clip_tokens = self.clip_encoder(x)
+        
+        if ablate_semantics:
+            clip_tokens = torch.zeros_like(clip_tokens)
 
         # Encoder
         e1 = self.enc1(x)

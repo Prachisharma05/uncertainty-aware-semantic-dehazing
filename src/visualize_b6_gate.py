@@ -81,7 +81,7 @@ def main():
     os.makedirs("results/phase8_visuals", exist_ok=True)
 
     for i in range(4):
-        fig, axes = plt.subplots(1, 5, figsize=(18, 4))
+        fig, axes = plt.subplots(1, 6, figsize=(22, 4))
 
         axes[0].imshow(tensor_to_img(hazy[i]))
         axes[0].set_title("Hazy Input")
@@ -103,8 +103,14 @@ def main():
         im = axes[4].imshow(gate_map, cmap="viridis")
         axes[4].set_title("B6 Gate Map")
         axes[4].axis("off")
+        
+        axes[5].imshow(tensor_to_img(hazy[i]))
+        im2 = axes[5].imshow(gate_map, cmap="jet", alpha=0.5)
+        axes[5].set_title("Gate Overlay (Hazy)")
+        axes[5].axis("off")
 
         fig.colorbar(im, ax=axes[4], fraction=0.046, pad=0.04)
+        fig.colorbar(im2, ax=axes[5], fraction=0.046, pad=0.04)
 
         plt.tight_layout()
         save_path = f"results/phase8_visuals/b6_gate_analysis_{i}.png"

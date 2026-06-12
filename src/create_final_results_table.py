@@ -9,6 +9,7 @@ FILES = {
     "B4_UNet_CrossAttention": "results/b4/b4_metrics.csv",
     "B5_GatedCrossAttention": "results/b5/b5_metrics.csv",
     "B6_FrozenBackbone_GatedCrossAttention": "results/b6/b6_metrics.csv",
+    "B6_Ablation_NoSemantics": "results/b6/b6_ablation_metrics.csv",
 }
 
 
@@ -33,6 +34,13 @@ def main():
             "Val CLIP ↓": row.get("val_clip_loss", None),
             "Gate Mean": row.get("val_gate_mean", None),
         })
+
+    benchmark_rows = [
+        {"Model": "FFA-Net (SOTA)", "PSNR ↑": 36.39, "SSIM ↑": 0.9888},
+        {"Model": "AECR-Net (SOTA)", "PSNR ↑": 37.17, "SSIM ↑": 0.9901},
+        {"Model": "DehazeFormer-S (SOTA)", "PSNR ↑": 37.84, "SSIM ↑": 0.9912},
+    ]
+    rows.extend(benchmark_rows)
 
     result_df = pd.DataFrame(rows)
 
